@@ -111,6 +111,8 @@ int main() {
           vector<double> mpc_x_vals;
           vector<double> mpc_y_vals;
 
+          //mpc_x_vals = 0;
+          //mpc_y_vals = 0;
           //.. add (x,y) points to list here, points are in reference to the vehicle's coordinate system
           // the points in the simulator are connected by a Green line
 
@@ -123,6 +125,9 @@ int main() {
 
           //.. add (x,y) points to list here, points are in reference to the vehicle's coordinate system
           // the points in the simulator are connected by a Yellow line
+
+          next_x_vals = ptsx;
+          next_y_vals = ptsy;
 
           msgJson["next_x"] = next_x_vals;
           msgJson["next_y"] = next_y_vals;
