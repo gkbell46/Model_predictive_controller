@@ -9,6 +9,8 @@
 #include "MPC.h"
 #include "json.hpp"
 
+#define LATENCY (0.15) 
+#define Lf (2.67)
 // for convenience
 using json = nlohmann::json;
 
@@ -92,6 +94,7 @@ int main() {
           double psi = j[1]["psi"];
           double v = j[1]["speed"];
 
+
           for (int i = 0; i < ptsx.size(); ++i)
           {
             /* code */
@@ -121,7 +124,16 @@ int main() {
           double throttle_value = j[1]["throttle"];
 
           Eigen::VectorXd state(6);
-          state << 0, 0, 0, v, cte, epsi;
+
+          double px_t1 = 0.0 + v * cos (0.0) * LATENCY;
+          double py_t1 = 0.0 + v * sin (0.0) * LATENCY;
+          double psi_t1 = 0.0 - (v / Lf) * steer_value * LATENCY;
+          double v_t1 = v + throttle_value * LATENCY;
+          double cte_t1 = cte - v * sin(epsi) * LATENCY;
+          double epsi_t1 = epsi - (v / Lf)* steer_value * LATENCY;
+
+
+          state << px_t1, py_t1, psi_t1, v_t1, cte_t1, epsi_t1;
 
 
           /*
@@ -168,8 +180,6 @@ int main() {
             }
           }
 
-
-          double Lf = 2.67;
 
           json msgJson;
           // NOTE: Remember to divide by deg2rad(25) before you send the steering value back.
