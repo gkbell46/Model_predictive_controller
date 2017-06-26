@@ -1,6 +1,30 @@
 # CarND-Controls-MPC
 Self-Driving Car Engineer Nanodegree Program
 
+## Overview of Model
+Here the car uses Model Predictive control (MPC) controller to control the steering, velocity and 
+throttle of the car so that the car moves in the optimized predicted trajectory . The state of the vehicle 
+is calculated based on the present state and the trajectory required for the car to move in. Future prediction of the state is done keeping an intention that the defined cost value is optimized as low as possible.
+
+### State of vehicle at any point is calculated using following parameters
+    1. Vehicle position in x axis px 
+    2. Vehicle position in y axis py
+    2. Heading of the vehicle psi
+    3. Speed of the vehicle v
+    4. Cross track error cte
+    5. Heading error epsi 
+
+* Cross track error defines the offset of the vehicle from the center of the road
+* Heading error is te difference between ideal heading and the actual heading
+
+### Actuators of the vehicle are
+    1. Steering Value
+    2. Throttle Value( Includes Acceleration and breaking ) 
+Using the states of the car, actuator values that has to be fed to the car is calculated.
+
+### Model update
+The model updates are perfomed every 125 ms. This delay accounts for the processing time of solver and the latency involved in the communication with the simulator. 
+
 ---
 
 ## Dependencies
