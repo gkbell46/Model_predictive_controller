@@ -25,6 +25,37 @@ Using the states of the car, actuator values that has to be fed to the car is ca
 ### Model update
 The model updates are perfomed every 125 ms. This delay accounts for the processing time of solver and the latency involved in the communication with the simulator. 
 
+### Tuning N and dt
+    N = 10
+    dt = 0.18
+    
+ * N defines the time over which the trajectory will be predicted from te present position. A vaue greated that 10 
+ only predcted the trajectory for longer distance even beyond the reference trajectory. Predicting so manytrajectory could only slow down due to too much calculations.
+ * dt defines the time over which values state is calculate or time elapsed between each step. Decrease in dt only increased the instatbility of the car and increase in the dt slowed down the car. with trail and error a value of 0.18 was selected. 
+ 
+ ### Preprocessing of data
+ 
+    1. Reference Trajectory points in x 
+    2. Reference Trajectory points in y
+    3. Vehicle position in x 
+    4. Vehicle position in y
+    5. Heading of the vehicle, psi
+    6. Speed of the vehicle, v
+    7. Steering value 
+    8. throttle value
+    
+ These are the incomming data from the simulator. 
+   
+    1. The waypoint coordinates need to be transformed from global to vehicle coordinates. Transformation is done using following equations.
+    
+    ptsx[i] = (shift_x * cos(0-psi) - shift_y * sin(0-psi));
+    ptsy[i] = (shift_x * sin(0-psi) + shift_y * cos(0-psi)); 
+    
+    2. CTE is calculated by fitting the transformed coordinates into 3 degree polynomial equation.
+    
+    3. Re-evaluation of the state considering 125 ms delay, before passing the data to the solver.
+   
+   
 ---
 
 ## Dependencies
