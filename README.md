@@ -44,7 +44,7 @@ The model updates are perfomed every 125 ms. This delay accounts for the process
     7. Steering value 
     8. throttle value
     
- These are the incomming data from the simulator. 
+ These are the incomming data from the simulator and needs preprocessing before predicting the future states. 
    
     1. The waypoint coordinates need to be transformed from global to vehicle coordinates. Transformation is done using following equations.
     
